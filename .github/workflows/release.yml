@@ -3,6 +3,12 @@ on:
   push:
     tags:
       - '[0-9]*.[0-9]*.[0-9]*'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Existing release tag to verify or publish'
+        required: true
+        type: string
 permissions:
   contents: read
 jobs:
@@ -12,6 +18,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.release_tag || github.ref_name }}
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
@@ -21,9 +29,22 @@ jobs:
       - name: Publish BRAT assets
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
         run: |
-          test "$(node -p 'JSON.parse(require("fs").readFileSync("manifest.json", "utf8")).version')" = "$GITHUB_REF_NAME"
-          gh release create "$GITHUB_REF_NAME" --verify-tag --prerelease \
-            --title "$GITHUB_REF_NAME" --notes-file CHANGELOG.md \
+          test "$(node -p 'JSON.parse(require("fs").readFileSync("manifest.json", "utf8")).version')" = "$RELEASE_TAG"
+          if gh release view "$RELEASE_TAG" --json assets,isDraft > existing-release.json; then
+            node --input-type=module -e '
+              import fs from "node:fs";
+              const release = JSON.parse(fs.readFileSync("existing-release.json", "utf8"));
+              const names = new Set(release.assets.map(asset => asset.name));
+              if (release.isDraft || ["main.js", "manifest.json", "styles.css", "LICENSE", "NOTICE", "THIRD-PARTY-NOTICES"].some(name => !names.has(name))) {
+                throw new Error("Existing release is incomplete; finish it before retrying.");
+              }
+            '
+            echo "Existing complete release retained."
+            exit 0
+          fi
+          gh release create "$RELEASE_TAG" --verify-tag --prerelease \
+            --title "$RELEASE_TAG" --notes-file CHANGELOG.md \
             dist/main.js dist/manifest.json dist/styles.css \
             dist/LICENSE dist/NOTICE dist/THIRD-PARTY-NOTICES
