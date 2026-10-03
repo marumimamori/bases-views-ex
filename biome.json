@@ -1,0 +1,33 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.4.8/schema.json",
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "tab",
+		"indentWidth": 1,
+		"lineWidth": 120
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single",
+			"semicolons": "always",
+			"trailingCommas": "all"
+		}
+	},
+	"linter": {
+		"enabled": false
+	},
+	"files": {
+		"includes": [
+			"**",
+			"!dist/**",
+			"!main.js",
+			"!releases/**",
+			"!node_modules/**",
+			"!work/**",
+			"!package-lock.json",
+			"!.claude/**",
+			"!src/spotlight/runtime.js",
+			"!tests/spotlight/**"
+		]
+	}
+}

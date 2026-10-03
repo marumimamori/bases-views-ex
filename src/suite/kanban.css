@@ -1,0 +1,1235 @@
+/* Kanban View Container */
+.obk-view-shell {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-height: 0;
+}
+.obk-view-shell > .obk-view-container {
+	flex: 1;
+	height: auto;
+	min-height: 0;
+}
+.obk-view-container {
+	container-type: inline-size;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+	overflow: hidden;
+}
+
+/* Property Selector */
+.obk-property-selector {
+	margin-bottom: 15px;
+	padding: 10px;
+	background: var(--background-secondary);
+	border-radius: 6px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.obk-property-label {
+	font-weight: 500;
+	color: var(--text-normal);
+}
+
+.obk-property-select {
+	padding: 6px 12px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 4px;
+	background: var(--background-primary);
+	color: var(--text-normal);
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.obk-property-select:hover {
+	border-color: var(--interactive-hover);
+}
+
+.obk-property-select:focus {
+	outline: 2px solid var(--interactive-accent);
+	outline-offset: 2px;
+}
+
+/* Empty State */
+.obk-empty-state {
+	padding: 40px 20px;
+	text-align: center;
+	color: var(--text-muted);
+	font-style: italic;
+}
+
+/* Kanban Board */
+.obk-board {
+	display: flex;
+	gap: 15px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	flex: 1;
+	padding-bottom: 10px;
+}
+
+.obk-board::-webkit-scrollbar {
+	height: 8px;
+}
+
+.obk-board::-webkit-scrollbar-track {
+	background: var(--background-secondary);
+	border-radius: 4px;
+}
+
+.obk-board::-webkit-scrollbar-thumb {
+	background: var(--background-modifier-border);
+	border-radius: 4px;
+}
+
+.obk-board::-webkit-scrollbar-thumb:hover {
+	background: var(--background-modifier-border-hover);
+}
+
+/* Swimlane mode: stack lanes vertically. The lane body becomes the
+   horizontal column flex (replacing what .obk-board does in flat mode). */
+.obk-board--with-swimlanes {
+	flex-direction: column;
+	overflow-x: hidden;
+	overflow-y: auto;
+	gap: 12px;
+}
+
+.obk-swimlane {
+	display: flex;
+	flex-direction: column;
+	background: var(--background-secondary-alt);
+	border-radius: 8px;
+	border: 1px solid var(--background-modifier-border);
+	overflow: hidden;
+}
+
+.obk-swimlane-header {
+	padding: 8px 14px;
+	background: var(--background-primary-alt);
+	border-bottom: 1px solid var(--background-modifier-border);
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-weight: 600;
+	font-size: 13px;
+	color: var(--text-normal);
+	text-transform: capitalize;
+	flex-shrink: 0;
+}
+
+.obk-swimlane-count {
+	font-size: 12px;
+	color: var(--text-muted);
+	background: var(--background-modifier-border);
+	padding: 2px 8px;
+	border-radius: 12px;
+	font-weight: 500;
+}
+
+.obk-swimlane-body {
+	display: flex;
+	align-items: stretch;
+	gap: 12px;
+	overflow-x: auto;
+	overflow-y: visible;
+	padding: 12px;
+	min-height: 140px;
+}
+
+/* In swimlane mode, each lane grows tall enough to fit the fullest column,
+   and shorter column bodies stretch to that height so their Sortable drop
+   target spans the whole lane row. */
+.obk-board--with-swimlanes .obk-column {
+	min-height: 0;
+	max-height: none;
+	height: auto;
+	overflow: visible;
+	align-self: stretch;
+}
+
+.obk-board--with-swimlanes .obk-column-body {
+	flex: 1 1 auto;
+	max-height: none;
+	overflow-y: visible;
+	min-height: 0;
+}
+
+/* The outer container caps height in flat mode; release it in swimlane mode
+   so the board grows to fit all lanes and the parent scroll-area scrolls. */
+.obk-view-container--with-swimlanes {
+	overflow: visible;
+	height: auto;
+}
+
+/* Collapsed lane: cap the column body at about 30% less than the original
+   420px height and scroll within the
+   column. The lane and column themselves stay flexible — only the card
+   container is capped. */
+.obk-swimlane--collapsed .obk-column-body {
+	max-height: 294px;
+	overflow-y: auto;
+}
+
+.obk-swimlane-toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	padding: 0;
+	color: var(--text-muted);
+	background: var(--background-modifier-border);
+	border: 0;
+	border-radius: 4px;
+	cursor: pointer;
+	user-select: none;
+	--icon-size: var(--icon-xs);
+	transition:
+		background 0.1s ease,
+		color 0.1s ease;
+}
+
+.obk-swimlane-toggle:hover {
+	color: var(--text-normal);
+	background: var(--background-modifier-border-hover);
+}
+
+.obk-swimlane-toggle:focus-visible {
+	outline: 2px solid var(--background-modifier-border-focus);
+	outline-offset: 2px;
+}
+
+.obk-swimlane-drag-handle {
+	cursor: grab;
+	padding: 2px 4px;
+	opacity: 0.5;
+	user-select: none;
+	font-size: 14px;
+	line-height: 1;
+	color: var(--text-muted);
+	display: flex;
+	align-items: center;
+	flex-shrink: 0;
+}
+
+.obk-swimlane-drag-handle:hover {
+	opacity: 1;
+	color: var(--text-normal);
+}
+
+.obk-swimlane-drag-handle:active {
+	cursor: grabbing;
+}
+
+.obk-swimlane-dragging {
+	opacity: 0.5;
+}
+
+.obk-swimlane-ghost {
+	opacity: 0.3;
+	background: var(--background-modifier-border);
+}
+
+.obk-swimlane-body::-webkit-scrollbar {
+	height: 8px;
+}
+.obk-swimlane-body::-webkit-scrollbar-track {
+	background: transparent;
+}
+.obk-swimlane-body::-webkit-scrollbar-thumb {
+	background: var(--background-modifier-border);
+	border-radius: 4px;
+}
+.obk-swimlane-body::-webkit-scrollbar-thumb:hover {
+	background: var(--background-modifier-border-hover);
+}
+
+/* Kanban Column */
+.obk-column {
+	--obk-column-accent-color: transparent;
+	flex: 0 0 clamp(200px, 60cqw, 280px);
+	display: flex;
+	flex-direction: column;
+	background: var(--background-secondary);
+	border-radius: 8px;
+	border: 1px solid var(--background-modifier-border);
+	min-height: 200px;
+	max-height: 100%;
+	overflow: hidden;
+}
+
+.obk-column-header {
+	padding: 12px 16px;
+	background: color-mix(in srgb, var(--obk-column-accent-color, transparent) 15%, var(--background-primary-alt));
+	border-bottom: 1px solid var(--background-modifier-border);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-shrink: 0;
+	gap: 8px;
+}
+
+/* Column color picker button */
+.obk-column-color-btn {
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	border: 2px solid var(--background-modifier-border);
+	background: var(--obk-column-accent-color, transparent);
+	cursor: pointer;
+	flex-shrink: 0;
+	transition:
+		transform 0.1s ease,
+		border-color 0.1s ease;
+}
+
+.obk-column-color-btn:hover {
+	border-color: var(--text-muted);
+	transform: scale(1.15);
+}
+
+/* Color picker popover */
+.obk-column-color-popover {
+	position: fixed;
+	background: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 8px;
+	padding: 8px;
+	display: flex;
+	gap: 6px;
+	flex-wrap: wrap;
+	width: 164px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	z-index: 100;
+}
+
+.obk-column-color-swatch {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	cursor: pointer;
+	border: 2px solid transparent;
+	transition:
+		transform 0.1s ease,
+		border-color 0.1s ease;
+}
+
+.obk-column-color-swatch:hover {
+	transform: scale(1.2);
+}
+
+.obk-column-color-swatch--active {
+	border-color: var(--text-normal);
+}
+
+.obk-column-color-none {
+	background: var(--background-modifier-border);
+	position: relative;
+}
+
+.obk-column-color-none::before,
+.obk-column-color-none::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 10px;
+	height: 1.5px;
+	background: var(--text-muted);
+	border-radius: 1px;
+	transform-origin: center;
+}
+
+.obk-column-color-none::before {
+	transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.obk-column-color-none::after {
+	transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.obk-column-drag-handle {
+	cursor: grab;
+	padding: 4px;
+	opacity: 0.5;
+	user-select: none;
+	font-size: 16px;
+	line-height: 1;
+	color: var(--text-muted);
+	display: flex;
+	align-items: center;
+}
+
+.obk-column-drag-handle:hover {
+	opacity: 1;
+	color: var(--text-normal);
+}
+
+.obk-column-drag-handle:active {
+	cursor: grabbing;
+}
+
+.obk-column-title {
+	flex: 1;
+	font-weight: 600;
+	font-size: 14px;
+	color: var(--text-normal);
+	text-transform: capitalize;
+}
+
+.obk-column-count {
+	font-size: 12px;
+	color: var(--text-muted);
+	background: color-mix(in srgb, var(--obk-column-accent-color, transparent) 15%, var(--background-modifier-border));
+	padding: 2px 8px;
+	border-radius: 12px;
+}
+
+.obk-column-add-btn,
+.obk-column-remove-btn {
+	width: 24px;
+	height: 24px;
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--text-muted);
+	cursor: pointer;
+	flex-shrink: 0;
+	transition:
+		background 0.1s ease,
+		color 0.1s ease,
+		opacity 0.1s ease;
+}
+
+.obk-column-add-btn {
+	opacity: 0.55;
+}
+
+.obk-column:hover .obk-column-add-btn,
+.obk-column-add-btn:focus-visible {
+	opacity: 1;
+}
+
+.obk-column-add-btn:hover,
+.obk-column-remove-btn:hover {
+	color: var(--text-normal);
+	background: var(--background-modifier-hover);
+}
+
+.obk-column-add-btn .svg-icon {
+	width: 16px;
+	height: 16px;
+}
+
+.obk-column-remove-btn {
+	font-size: 18px;
+	line-height: 1;
+}
+
+.obk-column-body {
+	flex: 1;
+	overflow-y: auto;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	min-height: 0;
+}
+
+.obk-column-body::-webkit-scrollbar {
+	width: 6px;
+}
+
+.obk-column-body::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.obk-column-body::-webkit-scrollbar-thumb {
+	background: var(--background-modifier-border);
+	border-radius: 3px;
+}
+
+.obk-column-body::-webkit-scrollbar-thumb:hover {
+	background: var(--background-modifier-border-hover);
+}
+
+/* Kanban Card */
+.obk-card {
+	background: var(--background-primary);
+	border: 1px solid
+		color-mix(in srgb, var(--obk-column-accent-color, transparent) 15%, var(--background-modifier-border));
+	border-radius: 6px;
+	padding: 12px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* targets touch-first devices (tablets, phones) to make the kanban genuinely usable on
+   touch screens — any-pointer: coarse alone would also match hybrid devices (e.g.
+   touchscreen laptops) where the primary pointer is still a mouse */
+@media (any-pointer: coarse) and (hover: none) {
+	.obk-card {
+		user-select: none;
+		-webkit-user-select: none;
+	}
+}
+
+.obk-card--hover {
+	border-color: var(--interactive-accent);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	transform: translateY(-1px);
+}
+
+.obk-card--active {
+	border-color: var(--interactive-accent);
+	box-shadow: 0 0 0 2px color-mix(in srgb, var(--interactive-accent) 25%, transparent);
+}
+
+.obk-card-cover {
+	display: block;
+	/* Bleed the cover to the card's inner border edge. Card has padding: 12px,
+	   so we expand the width by 24px and pull the box out with negative margins.
+	   width: 100% alone only fills the content box and leaves a 12px gap on each side. */
+	width: calc(100% + 24px);
+	margin: -12px -12px 8px -12px;
+	/* aspect-ratio is set inline from the imageAspectRatio config */
+	overflow: hidden;
+	border-top-left-radius: inherit;
+	border-top-right-radius: inherit;
+}
+
+.obk-card-cover img {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+.obk-card-cover--fit-cover img {
+	object-fit: cover;
+}
+
+.obk-card-cover--fit-contain img {
+	object-fit: contain;
+	background: var(--background-secondary);
+}
+
+.obk-card-title {
+	font-weight: 500;
+	font-size: 14px;
+	color: var(--text-normal);
+	line-height: 1.4;
+	word-wrap: break-word;
+}
+
+.obk-card-preview {
+	font-size: 12px;
+	color: var(--text-muted);
+	line-height: 1.4;
+	margin-top: 6px;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.obk-card-property {
+	font-size: var(--font-ui-smaller);
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	display: flex;
+	gap: 6px;
+	margin-top: 4px;
+}
+
+.obk-card-property-wrap {
+	white-space: normal;
+	text-overflow: initial;
+}
+
+.obk-card-property-wrap .obk-card-property-value {
+	white-space: normal;
+	text-overflow: initial;
+}
+
+.obk-card-property-label {
+	color: var(--text-muted);
+	flex-shrink: 0;
+}
+
+.obk-card-property-value {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.obk-card-property-value p {
+	display: inline;
+	margin: 0;
+}
+
+.obk-quick-add-form {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.obk-quick-add-input {
+	width: 100%;
+}
+
+.obk-quick-add-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+}
+
+/* Drag and Drop States */
+.obk-card-dragging {
+	opacity: 0.5;
+	transform: rotate(2deg);
+}
+
+.obk-card-ghost {
+	opacity: 0.3;
+	background: var(--interactive-accent);
+	border-color: var(--interactive-accent);
+}
+
+.obk-card-chosen {
+	cursor: grabbing;
+	transform: rotate(2deg);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Column Drag and Drop States */
+.obk-column-dragging {
+	opacity: 0.5;
+}
+
+.obk-column-ghost {
+	opacity: 0.3;
+	background: var(--background-modifier-border);
+}
+
+/* Sortable placeholder */
+.obk-sortable-ghost {
+	opacity: 0.4;
+	background: var(--interactive-accent);
+	border: 2px dashed var(--interactive-accent);
+	border-radius: 6px;
+}
+/* Board management settings */
+.obk-settings {
+	overflow-anchor: none;
+}
+.obk-settings-tabs,
+.obk-board-tabs,
+.obk-board-group-views {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 5px;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 6px 5px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 8px;
+	background: var(--background-secondary);
+}
+.obk-settings-tabs {
+	margin: 10px 0 14px;
+}
+.obk-settings-tabs button,
+.obk-board-choice {
+	appearance: none;
+	display: inline-flex;
+	align-items: center;
+	height: 34px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 7px;
+	color: var(--text-normal);
+	background: var(--interactive-normal);
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.12),
+		0 1px 2px rgba(0, 0, 0, 0.22);
+	transition:
+		background-color 160ms ease,
+		border-color 160ms ease,
+		box-shadow 160ms ease,
+		transform 160ms ease;
+}
+.obk-settings-tabs button:is(:hover, :focus, :focus-visible),
+.obk-board-choice:is(:hover, :focus, :focus-visible) {
+	color: var(--text-normal);
+	background: var(--interactive-hover);
+	border-color: var(--background-modifier-border-hover);
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.16),
+		0 3px 8px rgba(0, 0, 0, 0.24);
+	outline: none;
+	transform: translateY(-1px);
+}
+.obk-settings-tabs button.is-active,
+.obk-board-choice[aria-pressed="true"] {
+	background: var(--interactive-accent);
+	border-color: var(--interactive-accent);
+	color: var(--text-on-accent);
+	font-weight: var(--font-semibold);
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.16),
+		0 3px 8px rgba(0, 0, 0, 0.24);
+	outline: none;
+	transform: translateY(-1px);
+}
+.obk-settings-section {
+	margin: 0 0 18px;
+	padding: 16px;
+	border: 1px solid var(--background-modifier-border);
+	border-left: 3px solid var(--background-modifier-border-hover);
+	border-radius: 8px;
+	background: var(--background-secondary);
+}
+.obk-section-heading {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin: 0 0 12px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid var(--background-modifier-border);
+	font-size: var(--font-ui-medium);
+}
+.obk-section-body {
+	container-type: inline-size;
+}
+.obk-settings-section .setting-item {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	padding: 12px;
+	margin: 8px 0;
+	gap: 12px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 8px;
+	background: var(--background-primary-alt);
+}
+.obk-settings-section .setting-item-info {
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+.obk-settings-section .setting-item-description {
+	white-space: normal;
+}
+.obk-settings-section .setting-item:last-child {
+	margin-bottom: 0;
+}
+.obk-settings-section .setting-item-control {
+	gap: 8px;
+	min-width: 0;
+	max-width: 100%;
+}
+.obk-settings-section .setting-item-control select {
+	max-width: 100%;
+}
+.obk-settings-section .setting-item-control .obk-suggestion-anchor {
+	width: 220px;
+	max-width: 100%;
+}
+.obk-info {
+	display: inline-flex;
+	position: static;
+	align-items: center;
+}
+.obk-settings .obk-info-trigger {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 17px;
+	min-width: 17px;
+	height: 17px;
+	padding: 0;
+	border: 1px solid var(--text-faint);
+	border-radius: 50%;
+	background: transparent;
+	box-shadow: none;
+	color: var(--text-muted);
+	font-size: 11px;
+	line-height: 1;
+	cursor: help;
+}
+.obk-info-popover {
+	display: block;
+	visibility: hidden;
+	position: absolute;
+	top: calc(100% + 8px);
+	left: 0;
+	z-index: 110;
+	width: min(320px, 100%);
+	padding: 12px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 8px;
+	background: var(--background-primary);
+	box-shadow: var(--shadow-s);
+	color: var(--text-normal);
+	font-size: var(--font-ui-small);
+	font-weight: normal;
+	line-height: 1.5;
+}
+.obk-info:hover .obk-info-popover,
+.obk-info.is-open .obk-info-popover,
+.obk-info:has(:focus-visible) .obk-info-popover {
+	visibility: visible;
+}
+.obk-board-search,
+.obk-settings-add-column {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-top: 12px;
+}
+.obk-board-search > .obk-suggestion-anchor,
+.obk-settings-add-column > .obk-suggestion-anchor {
+	flex: 1;
+	min-width: 0;
+}
+.obk-board-search input,
+.obk-settings-add-column input {
+	width: 100%;
+	height: 34px;
+}
+.obk-board-search button,
+.obk-settings-add-column button {
+	flex-shrink: 0;
+	height: 34px;
+}
+.obk-icon-button,
+.obk-column-remove {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+.obk-icon-button svg,
+.obk-column-remove svg,
+.obk-base-remove svg {
+	width: 16px;
+	height: 16px;
+}
+.obk-base-pill {
+	display: inline-flex;
+	align-items: center;
+	max-width: 100%;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 7px;
+	background: var(--interactive-normal);
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.12),
+		0 1px 2px rgba(0, 0, 0, 0.22);
+	transition:
+		background-color 160ms ease,
+		border-color 160ms ease,
+		box-shadow 160ms ease,
+		transform 160ms ease;
+}
+.obk-settings .obk-base-pill button {
+	min-height: 32px;
+	padding: 4px 10px;
+	border: 0;
+	background: transparent;
+	box-shadow: none;
+	color: var(--text-normal);
+	overflow-wrap: anywhere;
+	text-align: left;
+}
+.obk-base-pill:is(:hover, :focus-within) {
+	background: var(--interactive-hover);
+	border-color: var(--background-modifier-border-hover);
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.16),
+		0 3px 8px rgba(0, 0, 0, 0.24);
+	transform: translateY(-1px);
+}
+.obk-base-pill:has([aria-pressed="true"]) {
+	border-color: var(--interactive-accent);
+	background: var(--interactive-accent);
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.16),
+		0 3px 8px rgba(0, 0, 0, 0.24);
+	transform: translateY(-1px);
+}
+.obk-settings .obk-base-pill button:focus {
+	outline: none;
+}
+.obk-settings .obk-base-pill:has([aria-pressed="true"]) button {
+	color: var(--text-on-accent);
+}
+.obk-settings .obk-base-pill [aria-pressed="true"] {
+	font-weight: var(--font-semibold);
+}
+.obk-settings .obk-base-pill .obk-base-remove {
+	display: flex;
+	align-items: center;
+	padding: 4px 7px;
+	flex-shrink: 0;
+}
+.obk-base-remove:hover,
+.obk-column-remove:hover {
+	color: var(--text-error);
+}
+.obk-board-selector-row {
+	display: flex;
+	align-items: baseline;
+	gap: 10px;
+	margin-top: 12px;
+}
+.obk-board-selector-label {
+	flex: 0 0 48px;
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}
+.obk-board-selector-row > .obk-board-tabs,
+.obk-board-selector-row > .obk-board-group-views {
+	min-width: 0;
+	flex: 1;
+}
+.obk-board-status {
+	min-height: 18px;
+	margin: 6px 0;
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+	overflow-wrap: anywhere;
+}
+.obk-board-status[hidden] {
+	display: none;
+}
+.obk-synced-label {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	min-width: 0;
+}
+.obk-sync-indicator {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 14px;
+	width: 14px;
+	height: 14px;
+	color: var(--text-muted);
+	transition: color 300ms ease;
+}
+.obk-sync-indicator svg {
+	width: 14px;
+	height: 14px;
+}
+.obk-sync-indicator[data-sync-state="pending"] {
+	color: var(--interactive-accent);
+}
+.obk-sync-indicator[data-sync-state="synced"] {
+	color: var(--color-green);
+}
+.obk-sync-indicator[data-sync-state="error"] {
+	color: var(--text-error);
+}
+.obk-sync-indicator[data-sync-state="pending"] svg {
+	animation: obk-sync-turn 900ms linear infinite;
+}
+.obk-sync-indicator[data-sync-state="synced"] svg {
+	animation: obk-sync-turn 900ms ease-in-out;
+}
+@keyframes obk-sync-turn {
+	to {
+		transform: rotate(360deg);
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.obk-settings-tabs button,
+	.obk-board-choice,
+	.obk-base-pill {
+		transition: none;
+		transform: none;
+	}
+	.obk-sync-indicator svg {
+		animation: none !important;
+	}
+	.obk-sync-indicator {
+		transition: none;
+	}
+}
+.obk-view-controls {
+	display: flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 8px;
+	padding: 8px 12px;
+	font-size: var(--font-ui-small);
+	color: var(--text-muted);
+}
+.obk-view-controls .obk-visibility-toggle {
+	position: relative;
+	width: 36px;
+	min-width: 36px;
+	height: 20px;
+	padding: 0;
+	border: 0;
+	border-radius: 20px;
+	background: var(--background-modifier-border-hover);
+	box-shadow: none;
+	transition: background-color 180ms ease;
+}
+.obk-visibility-toggle::before {
+	content: "";
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background: var(--text-normal);
+	transition: transform 180ms ease;
+}
+.obk-view-controls .obk-visibility-toggle.is-enabled {
+	background: var(--interactive-accent);
+}
+.obk-visibility-toggle.is-enabled::before {
+	transform: translateX(16px);
+}
+.obk-visibility-toggle:focus-visible {
+	outline: 2px solid var(--interactive-accent);
+	outline-offset: 3px;
+}
+.obk-settings-columns {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-top: 14px;
+}
+.obk-uncategorized-controls {
+	grid-column: 2 / -1;
+	min-width: 0;
+}
+.obk-uncategorized-controls .setting-item {
+	background: var(--background-secondary);
+}
+.obk-uncategorized-row input[readonly] {
+	color: var(--text-muted);
+	cursor: default;
+}
+.obk-settings-column {
+	display: grid;
+	grid-template-columns: 20px minmax(0, 1fr) minmax(0, 1fr) 150px 28px;
+	align-items: end;
+	gap: 10px;
+	padding: 10px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 8px;
+	background: var(--background-primary);
+}
+.obk-setting-drag {
+	align-self: end;
+	display: flex;
+	align-items: center;
+	height: 32px;
+	color: var(--text-muted);
+	font-size: 22px;
+	cursor: grab;
+	touch-action: none;
+}
+.obk-column-field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	min-width: 0;
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	line-height: 1.25;
+}
+.obk-column-field input[type="text"],
+.obk-column-field select {
+	width: 100%;
+	min-width: 0;
+	height: 32px;
+}
+.obk-color-controls {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+.obk-color-controls select {
+	flex: 1;
+	min-width: 0;
+}
+.obk-color-swatch {
+	position: relative;
+	flex-shrink: 0;
+	width: 32px;
+	height: 32px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px;
+}
+.obk-color-swatch.is-empty {
+	background-image: repeating-linear-gradient(135deg, transparent 0 5px, var(--background-modifier-border) 5px 7px);
+}
+.obk-color-swatch:focus-within {
+	outline: 2px solid var(--interactive-accent);
+	outline-offset: 2px;
+}
+.obk-color-swatch input[type="color"] {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	cursor: pointer;
+}
+.obk-settings .obk-column-remove {
+	width: 28px;
+	height: 32px;
+	padding: 4px;
+}
+.obk-suggestion-anchor {
+	position: relative;
+	min-width: 0;
+}
+.obk-suggestion-anchor > input {
+	width: 100%;
+}
+.obk-suggestion-menu {
+	position: absolute;
+	top: calc(100% + 4px);
+	left: 0;
+	right: 0;
+	z-index: 100;
+	max-height: 220px;
+	overflow: auto;
+	padding: 4px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px;
+	background: var(--background-primary);
+	box-shadow: var(--shadow-s);
+}
+.obk-suggestion-menu[hidden] {
+	display: none;
+}
+.obk-suggestion-option {
+	padding: 7px 9px;
+	border-radius: 4px;
+	cursor: pointer;
+	color: var(--text-normal);
+	font-size: var(--font-ui-small);
+	overflow-wrap: anywhere;
+}
+.obk-suggestion-option:hover,
+.obk-suggestion-option[aria-selected="true"] {
+	background: var(--background-modifier-hover);
+}
+.obk-suggestion-base {
+	font-weight: var(--font-semibold);
+}
+.obk-suggestion-view {
+	margin-top: 3px;
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+}
+.obk-settings-error {
+	min-height: 20px;
+	margin-top: 12px;
+	color: var(--text-error);
+}
+.obk-license {
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+	font-size: var(--font-ui-smaller);
+	background: var(--background-secondary);
+	padding: 16px;
+	border-radius: 8px;
+}
+@container (max-width: 460px) {
+	.obk-settings-column {
+		grid-template-columns: 20px minmax(0, 1fr) 28px;
+	}
+	.obk-setting-drag {
+		grid-column: 1;
+		grid-row: 1 / span 3;
+		align-self: center;
+	}
+	.obk-column-field {
+		grid-column: 2;
+	}
+	.obk-column-remove {
+		grid-column: 3;
+		grid-row: 1 / span 3;
+		align-self: center;
+	}
+	.obk-settings-section .setting-item:has(input[type="text"]),
+	.obk-settings-section .setting-item:has(select) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+	.obk-settings-section .setting-item:has(input[type="text"]) .setting-item-info,
+	.obk-settings-section .setting-item:has(select) .setting-item-info {
+		flex-basis: 100%;
+	}
+	.obk-settings-section .setting-item:has(input[type="text"]) .setting-item-control,
+	.obk-settings-section .setting-item:has(select) .setting-item-control {
+		width: 100%;
+		justify-content: flex-start;
+	}
+	.obk-settings-section .setting-item-control .obk-suggestion-anchor,
+	.obk-settings-section .setting-item-control select {
+		width: 100%;
+	}
+}
+.obk-custom-color {
+	display: flex;
+	grid-column: 1 / -1;
+	align-items: center;
+	gap: 8px;
+	font-size: var(--font-ui-small);
+}
+.obk-custom-color input {
+	width: 40px;
+	height: 28px;
+}
+@media (max-width: 640px) {
+	.obk-settings-column {
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.obk-settings-column-fields {
+		flex-basis: calc(100% - 40px);
+	}
+	.obk-settings-colors {
+		margin-left: 28px;
+	}
+}
+
+/* Saved custom columns remain editable while ordinary columns are in use. */
+.obk-settings-column.is-unused {
+	opacity: 0.46;
+	background: var(--background-secondary);
+}
+.obk-settings-column.is-unused:focus-within,
+.obk-settings-column.is-unused:hover {
+	opacity: 0.75;
+}
+
+.bvx-beta-notice {
+	padding: 10px 12px;
+	border-left: 3px solid var(--color-orange);
+	border-radius: 4px;
+	background: var(--background-primary-alt);
+}
+.bvx-settings-body ol {
+	padding-left: 24px;
+}
+.bvx-settings-body li {
+	margin: 8px 0;
+	line-height: 1.5;
+}

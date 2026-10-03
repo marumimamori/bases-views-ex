@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Spotlight EX editor regression tests</title>
+<link rel="stylesheet" href="/styles.css">
+<style>
+:root { font: 15px/1.5 system-ui; color-scheme: dark; --background-primary: #191a20; --background-secondary: #23242c; --background-primary-alt: #30323d; --background-modifier-border: #444653; --background-modifier-form-field: #191a20; --background-modifier-hover: #383b48; --text-normal: #eff0f4; --text-muted: #b5b8c6; --text-faint: #7b7e90; --text-accent: #bcadff; --interactive-accent: #997afa; --text-error: #fb6868; }
+body { margin: 24px; background: var(--background-primary); color: var(--text-normal); }
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+#fixture { height: 640px; max-width: 1000px; border: 1px solid #444653; }
+#results { white-space: pre-wrap; }
+#fixture .spotlight-ex-view { height: 100%; }
+.spotlight-ex-center { justify-content: center; }
+#settings-preview { max-width: 850px; padding: 20px; background: var(--background-secondary); margin: 20px 0; }
+.setting-item { display: flex; gap: 24px; padding: 16px 0; border-bottom: 1px solid var(--background-modifier-border); align-items: center; }
+.setting-item-info { flex: 1; }
+.setting-item-description { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+.setting-item-control { display: flex; gap: 16px; align-items: center; }
+.setting-item-control input[type="text"] { width: 80px; }
+.clickable-icon { display: flex; padding: 5px; border-radius: 5px; cursor: pointer; color: var(--text-muted); }
+.clickable-icon:hover { color: var(--text-normal); background: var(--background-modifier-hover); }
+.clickable-icon svg { width: 18px; height: 18px; }
+/* Include Obsidian's regular-button distinction, plus theme overrides that exposed the alignment bug. */
+body[data-appearance="obsidian"], body[data-appearance="large"] { --background-primary: #1e1e1e; --background-secondary: #262626; --interactive-normal: #303030; --interactive-hover: #414141; --background-modifier-border: #3b3b3b; --background-modifier-border-hover: #555; font-size: 18px; }
+body[data-appearance="obsidian"] #fixture button:not(.clickable-icon), body[data-appearance="large"] #fixture button:not(.clickable-icon) { background: #363636; box-shadow: 0 1px 3px #111; padding: 4px 10px; height: 32px; border-radius: 5px; }
+body[data-appearance="obsidian"] #fixture .spotlight-ex-type-icon { min-width: 38px; height: 38px; }
+body[data-appearance="large"] #fixture .spotlight-ex-type-icon { min-width: 52px; height: 44px; padding: 8px 14px; margin-left: 4px; }
+body[data-appearance="large"] #fixture .spotlight-ex-property-header { gap: 11px; }
+body[data-appearance="obsidian"] #fixture input[type="checkbox"], body[data-appearance="large"] #fixture input[type="checkbox"] { width: 20px; height: 20px; border-radius: 5px; }
+</style>
+<h1>Spotlight EX editor regression tests</h1>
+<p>The real plugin editors and stylesheet, with test metadata kept in memory.</p>
+<button id="run">Run regression tests</button>
+<button id="deactivate">Simulate inactive pane</button>
+<button id="refresh">Simulate Base refresh</button>
+<button id="settings">Preview settings</button>
+<button id="alignment">Preview empty properties</button>
+<label>Preview appearance <select id="appearance"><option value="obsidian">Obsidian / 38px icons</option><option value="large">Larger controls / 52px icons</option><option value="basic">Basic fixture / 30px icons</option></select></label>
+<section id="settings-preview" hidden></section>
+<output id="settings-status"></output>
+<pre id="results">Ready.</pre>
+<div id="fixture"></div>
+<script src="/fixture.js"></script>
+<script src="/main.js"></script>
+<script src="/regression.js"></script>
+</html>

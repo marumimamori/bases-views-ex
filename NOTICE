@@ -1,0 +1,31 @@
+Bases Views EX — combined MIT derivative
+
+Kanban component:
+Based on Kanban Bases View 0.10.6 by I. Welch Canavan.
+Copyright (c) 2026 I. Welch Canavan
+https://github.com/xiwcx/obsidian-bases-kanban
+Upstream commit: e5fbe3c42419f1503a4ae11e307d2e00782b528a
+Includes the local status-list edition through 0.10.14.
+
+Spotlight and Cards components:
+Based on Obsidian Bases Spotlight View by Brendan Early / mymindstorm.
+Copyright (c) 2026 Brendan Early
+https://github.com/mymindstorm/obsidian-bases-spotlight-view
+Includes Spotlight EX 0.1.12 by Maru and its editable Cards EX implementation.
+https://github.com/marumimamori/spotlight-ex
+The original upstream basis was version 1.1.4; see licenses/UPSTREAM.md.
+
+Combined edition by Maru, 2026-10-03:
+- Preserves Kanban, Spotlight and Cards view IDs and behavior.
+- Adds one settings page with a tab for each layout, independent Base/view libraries,
+  synced view options, Kanban/Autotag styling, shared setup and combined credits.
+- Mutes saved custom columns when only ordinary property columns are in use.
+- Migrates source plugin data into separate namespaces with serialized saves.
+- Retains the source plugins and their data for rollback; no Base rewrite on migration.
+
+Both complete original MIT notices are retained in LICENSE, licenses/, the bundle,
+and Thanks & license. SortableJS's notice is in THIRD-PARTY-NOTICES.
+No endorsement by either original author is implied.
+
+This beta was vibecoded with AI assistance. Keep backups and test carefully.
+Repository: https://github.com/marumimamori/bases-views-ex

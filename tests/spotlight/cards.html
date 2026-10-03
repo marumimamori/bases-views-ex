@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Cards EX preview and regression tests</title>
+<link rel="stylesheet" href="/styles.css">
+<style>
+:root { font: 15px/1.5 system-ui; color-scheme: dark; --background-primary:#1e1e1e; --background-secondary:#262626; --background-primary-alt:#303030; --background-modifier-border:#3b3b3b; --background-modifier-border-hover:#666; --background-modifier-hover:#353535; --text-normal:#e1e1e1; --text-muted:#aaa; --text-faint:#777; --text-accent:#bbacff; --interactive-accent:#997afa; --interactive-normal:#303030; --interactive-hover:#414141; --text-error:#ff7777; }
+body { margin:24px; background:var(--background-primary); color:var(--text-normal); }
+button,input,textarea,select { font:inherit; }
+button { background:var(--interactive-normal); color:var(--text-normal); border:1px solid var(--background-modifier-border); border-radius:5px; padding:4px 10px; cursor:pointer; }
+button:hover { background:var(--interactive-hover); }
+#fixture { height:740px; max-width:1150px; border:1px solid var(--background-modifier-border); margin-top:16px; }
+#results { white-space:pre-wrap; }
+</style>
+<h1>Cards EX</h1>
+<p>Click a displayed property to edit it. The gallery and metadata below use synthetic files.</p>
+<button id="run">Run Cards EX regression tests</button>
+<button id="preview">Preview gallery</button>
+<button id="stress">Preview 10,000 images</button>
+<button id="deactivate">Focus outside gallery</button>
+<a href="/">Spotlight EX editor tests</a>
+<pre id="results">Ready.</pre>
+<div id="fixture"></div>
+<script src="/fixture.js"></script>
+<script src="/main.js"></script>
+<script src="/cards-regression.js"></script>
+</html>

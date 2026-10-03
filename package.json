@@ -1,0 +1,57 @@
+{
+	"name": "bases-views-ex",
+	"version": "0.1.0",
+	"description": "Kanban, Spotlight and editable Cards views for Obsidian Bases, with synced settings and property editing.",
+	"main": "main.js",
+	"imports": {
+		"obsidian": "./tests/mocks/obsidian.ts",
+		"sortablejs": "./tests/mocks/sortablejs.js"
+	},
+	"scripts": {
+		"dev": "node esbuild.config.mjs",
+		"build": "node scripts/styles.mjs && tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+		"typecheck": "tsc -noEmit -skipLibCheck",
+		"test": "tsx --tsconfig tsconfig.test.json --test tests/*.test.ts",
+		"prepare": "git config core.hooksPath .githooks",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"format": "biome format --write .",
+		"format:check": "biome format --diagnostic-level=error .",
+		"check": "node --check src/spotlight/runtime.js && npm run typecheck",
+		"verify-release": "node scripts/verify-release.mjs"
+	},
+	"keywords": [
+		"obsidian",
+		"obsidian-plugin",
+		"kanban",
+		"bases",
+		"task-management"
+	],
+	"author": "Maru",
+	"license": "MIT",
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.8",
+		"@types/jsdom": "^21.1.6",
+		"@types/node": "^24.0.0",
+		"@types/sortablejs": "^1.15.9",
+		"@typescript-eslint/eslint-plugin": "^8.0.0",
+		"@typescript-eslint/parser": "^8.0.0",
+		"esbuild": "^0.28.0",
+		"eslint": "^9.0.0",
+		"eslint-plugin-obsidianmd": "^0.4.2",
+		"jsdom": "^24.0.0",
+		"obsidian": "^1.5.8",
+		"tslib": "2.6.2",
+		"tsx": "^4.20.6",
+		"typescript": "5.3.3",
+		"yaml": "^2.9.1"
+	},
+	"dependencies": {
+		"sortablejs": "^1.15.0"
+	},
+	"homepage": "https://github.com/marumimamori/bases-views-ex",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/marumimamori/bases-views-ex.git"
+	}
+}
