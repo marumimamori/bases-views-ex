@@ -1,6 +1,6 @@
 {
 	"name": "bases-views-ex",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Kanban, Spotlight and editable Cards views for Obsidian Bases, with synced settings and property editing.",
 	"main": "main.js",
 	"imports": {
@@ -27,7 +27,7 @@
 		"bases",
 		"task-management"
 	],
-	"author": "Maru",
+	"author": "marumimamori",
 	"license": "MIT",
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.8",

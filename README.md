@@ -1,6 +1,6 @@
 # Bases Views EX
 
-One Obsidian plugin with **Kanban EX**, **Spotlight EX** and **Cards EX** layouts for Bases. Version **0.1.0** combines Kanban's status-list edition 0.10.14 with Spotlight EX 0.1.12 and retains their existing saved view identifiers.
+One Obsidian plugin with **Kanban EX**, **Spotlight EX** and **Cards EX** layouts for Bases. Version **0.1.1** combines Kanban's status-list edition 0.10.14 with Spotlight EX 0.1.12 and retains their existing saved view identifiers.
 
 ## Install with BRAT
 
@@ -57,7 +57,7 @@ The saved view types remain `kanban-view`, `bases-spotlight-view-expanded` and `
 
 ## Thanks and licenses
 
-Thanks to **I. Welch Canavan** for [Kanban Bases View](https://github.com/xiwcx/obsidian-bases-kanban), and **Brendan Early / mymindstorm** for [Obsidian Bases Spotlight View](https://github.com/mymindstorm/obsidian-bases-spotlight-view). Spotlight EX, Cards EX and this merged edition are maintained by [Maru](https://marumimamori.me/). Thanks also to the SortableJS contributors and TfTHacker for BRAT.
+Thanks to **I. Welch Canavan** for [Kanban Bases View](https://github.com/xiwcx/obsidian-bases-kanban), and **Brendan Early / mymindstorm** for [Obsidian Bases Spotlight View](https://github.com/mymindstorm/obsidian-bases-spotlight-view). Spotlight EX, Cards EX and this merged edition are maintained by [marumimamori](https://marumimamori.me/). Thanks also to the SortableJS contributors and TfTHacker for BRAT.
 
 Both original MIT copyright and full permission notices are retained in [LICENSE](LICENSE), their separate files under `licenses/`, the bundle and the combined **Thanks & license** tab. SortableJS's MIT notice is in [THIRD-PARTY-NOTICES](THIRD-PARTY-NOTICES). See [NOTICE](NOTICE) for the derivative basis. No endorsement by the original authors is implied. The plugin has no telemetry.
 

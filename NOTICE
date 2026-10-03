@@ -11,11 +11,11 @@ Spotlight and Cards components:
 Based on Obsidian Bases Spotlight View by Brendan Early / mymindstorm.
 Copyright (c) 2026 Brendan Early
 https://github.com/mymindstorm/obsidian-bases-spotlight-view
-Includes Spotlight EX 0.1.12 by Maru and its editable Cards EX implementation.
+Includes Spotlight EX 0.1.12 by marumimamori and its editable Cards EX implementation.
 https://github.com/marumimamori/spotlight-ex
 The original upstream basis was version 1.1.4; see licenses/UPSTREAM.md.
 
-Combined edition by Maru, 2026-10-03:
+Combined edition by marumimamori, 2026-10-03:
 - Preserves Kanban, Spotlight and Cards view IDs and behavior.
 - Adds one settings page with a tab for each layout, independent Base/view libraries,
   synced view options, Kanban/Autotag styling, shared setup and combined credits.

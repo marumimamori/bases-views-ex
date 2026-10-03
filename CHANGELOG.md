@@ -1,5 +1,9 @@
 # Changes
 
+## 0.1.1 — 2026-10-03
+
+- Changed the displayed author and maintainer name to marumimamori in plugin metadata, Thanks & license and documentation.
+
 ## 0.1.0 — 2026-10-03
 
 - Merged the Kanban status-list edition 0.10.14 and Spotlight EX 0.1.12, including Cards EX, into Bases Views EX.

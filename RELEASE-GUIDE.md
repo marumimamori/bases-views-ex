@@ -1,4 +1,4 @@
-# Bases Views EX 0.1.0
+# Bases Views EX 0.1.1
 
 The merged plugin provides Kanban EX, Spotlight EX and Cards EX. Use its layout tabs to configure independent Base views, Setup for a short guide, and Thanks & license for both original MIT notices.
 

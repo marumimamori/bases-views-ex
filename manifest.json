@@ -1,10 +1,10 @@
 {
 	"id": "bases-views-ex",
 	"name": "Bases Views EX",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"minAppVersion": "1.10.2",
 	"description": "Kanban, Spotlight and editable Cards views for Obsidian Bases, with synced settings and property editing.",
-	"author": "Maru",
+	"author": "marumimamori",
 	"authorUrl": "https://marumimamori.me/",
 	"isDesktopOnly": false
 }

@@ -110,9 +110,9 @@ export function renderThanks(parent: HTMLElement): void {
 	link(credits, 'Original Spotlight project', 'https://github.com/mymindstorm/obsidian-bases-spotlight-view');
 	credits.createEl('p', {
 		text:
-			'Spotlight EX, Cards EX and this combined edition are maintained by Maru. Thanks to TfTHacker for BRAT and the SortableJS contributors for drag-and-drop. These derivatives do not imply endorsement by the original authors.',
+			'Spotlight EX, Cards EX and this combined edition are maintained by marumimamori. Thanks to TfTHacker for BRAT and the SortableJS contributors for drag-and-drop. These derivatives do not imply endorsement by the original authors.',
 	});
-	link(credits, 'Maru', 'https://marumimamori.me/');
+	link(credits, 'marumimamori', 'https://marumimamori.me/');
 	for (const [name, license] of [
 		['Kanban · MIT license', MIT_LICENSE],
 		['Spotlight · MIT license', SpotlightRuntime.ORIGINAL_MIT_LICENSE],
